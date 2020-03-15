@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody2D rb;
+
+    public float speed = 400;
+
+    int direction = 1;
+
+    private bool hitWall;
+
+   void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        float xDisplacement = direction * speed * Time.deltaTime;
+        rb.velocity = new Vector2(xDisplacement, rb.velocity.x);
+
+        if (hitWall == true)
+        {
+            direction *= -1;
+        }
+      
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        hitWall = true;
     }
 }
