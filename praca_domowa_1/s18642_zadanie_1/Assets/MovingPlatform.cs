@@ -4,36 +4,29 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    private Rigidbody2D rb;
-
+   
     public float speed = 400;
-
-    int direction = 1;
-
-    private bool hitWall;
-
-   void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-
-    }
-
+    public float directionX = 3;
+    private bool move;
 
     void Update()
     {
-        float xDisplacement = direction * speed * Time.deltaTime;
-        rb.velocity = new Vector2(xDisplacement, rb.velocity.x);
-
-        if (hitWall == true)
+      if (transform.position.x > 4)
         {
-            direction *= -1;
+            move = false;
+        } else if (transform.position.x < -4)
+        {
+            move = true;
         }
-      
+
+        if (move)
+        {
+            transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
+        } else
+        {
+            transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
+        }
+
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Wall")
-        hitWall = true;
-    }
 }
