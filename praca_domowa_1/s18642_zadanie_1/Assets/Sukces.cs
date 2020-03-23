@@ -8,12 +8,16 @@ public class Sukces : MonoBehaviour
     public GameObject sukces;
     void Start()
     {
-        sukces = GameObject.Find("sukces");
+        sukces = GameObject.Find("Sukces");
         sukces.gameObject.SetActive(false);
     }
-    void OnTriggerEnter(Collider other)
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+       
+
+        if (collision.gameObject.name.Equals("Cactonio"))
         {
             sukces.gameObject.SetActive(true);
         }
